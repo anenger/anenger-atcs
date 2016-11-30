@@ -10,6 +10,6 @@ public class PrepForQuiz {
 		System.out.println(q1.getLives());
 		q1.setScore(times2(q1.getScore()));
 		System.out.println(q1.getScore());
-		
+		System.out.println();
 	}
 }
