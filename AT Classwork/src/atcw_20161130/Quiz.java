@@ -3,7 +3,8 @@ package atcw_20161130;
 public class Quiz {
 	int score;
 	int lives;
-	Quiz(int s, int l){
+	String name;
+	Quiz(int s, int l, String n){
 		score = s; 
 		lives = l;
 	}

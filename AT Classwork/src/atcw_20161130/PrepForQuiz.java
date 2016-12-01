@@ -5,7 +5,7 @@ public class PrepForQuiz {
 		return x*2;
 	}
 	public static void main(String[] args){
-		Quiz q1 = new Quiz(10, 3);
+		Quiz q1 = new Quiz(10, 3, "L of a quiz");
 		q1.lostLife();
 		System.out.println(q1.getLives());
 		q1.setScore(times2(q1.getScore()));
