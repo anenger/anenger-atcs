@@ -54,6 +54,35 @@ public class Array {
 		mainArray[i1] = mainArray[i2];
 		mainArray[i2] = value;
 	}
+	
+	int max(){
+		int max = 0;
+		sort();
+		max = mainArray[mainArray.length - 1];
+		return max;
+	}
+	
+	int min(){
+		int min = 0;
+		sort();
+		min = mainArray[0];
+		return min;
+	}
+	
+	int average(){
+		int average = 0;
+		int sum = 0;
+		for (int x = 0; x < mainArray.length; x++){
+			sum += mainArray[x];
+		}
+		average = sum / mainArray.length;
+		return average;
+	}
+	
+	int size(){
+		int size = mainArray.length;
+		return size;
+	}
 
 	int getValue(int index){
 		return mainArray[index];
@@ -61,11 +90,16 @@ public class Array {
 	
 	void sort(){
 		for (int x = 0; x < mainArray.length; x++){
-			for (int y = x; y<mainArray.length; y++){
-				if (mainArray[x] > mainArray[y]){
+			for (int y = x; y < mainArray.length; y++){
+				if (mainArray[y] < mainArray[x]){
 					swap(x, y);
 				}
 			}
+		}
+	}
+	
+	void insertionsort(){
+		for (int x = 0; x < mainArray.length; x++){
 		}
 	}
 	
@@ -86,7 +120,15 @@ public class Array {
 			return false;
 		}
 	}
-
+	
+	void fill(int min, int max){
+		int random = 0;
+		for (int x = 0; x < mainArray.length; x++){
+			random = (int)(Math.random()*max) + min;
+			mainArray[x] = random;
+		}
+	}
+	
 	void shiftValues(){
 		resize(1);
 		for (int x = 0; x < mainArray.length; x++){
@@ -95,6 +137,7 @@ public class Array {
 	}
 	
 	void shiftValues(int iterator, int index){
+		resize(iterator);
 		for (int x = index; x < mainArray.length; x++){
 			mainArray[x + iterator] = mainArray[x];
 		}
