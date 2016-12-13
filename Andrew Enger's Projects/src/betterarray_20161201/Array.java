@@ -29,15 +29,8 @@ public class Array {
 	}
 
 	void insert(int index, int value){
-		if (index < mainArray.length && index >= 0){
-			mainArray[index] = value;
-		}
-		else{
-			System.out.println("This index is out of bounds.");
-			System.out.println("Resizing the array...");
-			resize(index - mainArray.length + 1);
-			mainArray[index] = value;
-		}
+		shiftValues(1, index);
+		mainArray[index] = value;
 	}
 
 	void remove(int index){
@@ -155,11 +148,20 @@ public class Array {
 		}
 	}
 	
-	void shiftValues(int iterator, int index){
-		resize(iterator);
-		for (int x = index; x < mainArray.length; x++){
-			mainArray[x + iterator] = mainArray[x];
+	void shiftValues(int shift, int index){
+		resize(shift);
+		for (int x = mainArray.length - 1; x >= index; x--){
+			if (x == 0){
+				mainArray[x] = mainArray[x + 1];
+			}
+			else{
+				mainArray[x] = mainArray[x - shift];
+			}
 		}
+	}
+	
+	int[] getArray(){
+		return mainArray;
 	}
 
 	public String toString(){
