@@ -58,7 +58,6 @@ public class BetterArray {
 					System.out.println(a1.get(i2) + " is the ID value you have chosen. Are you sure you want to delete this value?");
 					System.out.println("Y or N");
 					String check = input.nextLine();
-					input.nextLine();
 						if (check.equals("Y")){
 							a1.remove(i2);
 						}
