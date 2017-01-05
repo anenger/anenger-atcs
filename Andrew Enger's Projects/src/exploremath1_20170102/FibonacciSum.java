@@ -8,7 +8,6 @@ public class FibonacciSum {
 		int hold = 0;
 		int evensum = 0;
 		while (num2 < 4000000){
-			System.out.println(num2);
 			if (num2 % 2 == 0){
 				evensum+=num2;
 			}
