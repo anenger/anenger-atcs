@@ -34,11 +34,11 @@ public class FileArray {
 		try {
 			FileWriter fw = new FileWriter(filename);
 			for (int i = 0; i < mainArray.length; i++){
-				if (i<mainArray.length - 1){
+				if (i < (mainArray.length - 1)){
 					fw.write(mainArray[i] + ",");
 				}
 				else{
-					fw.write(mainArray[i]);
+					fw.write(mainArray[i] + "");
 				}
 			}
 			fw.close();
@@ -48,9 +48,13 @@ public class FileArray {
 	}
 	void enterArray(int[] a){
 		mainArray = a;
-		writeFile("out.txt");
+		writeFile("test.txt");
 	}
 	int[] returnArray(){
 		return mainArray;
+	}
+	
+	int length(){
+		return mainArray.length;
 	}
 }

@@ -11,6 +11,9 @@ public class Main {
 		a1.enterArray(array);
 		a1.writeFile("test.txt");
 		a1.readFile("test.txt");
+		for (int i = 0; i<a1.length(); i++){
+			System.out.println(a1.returnArray()[i]);
+		}
 	}
 
 }
