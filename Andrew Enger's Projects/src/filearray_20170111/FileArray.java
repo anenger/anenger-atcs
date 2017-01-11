@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class FileArray {
 	private int[] mainArray;
-	FileArray(int l){
-		mainArray = new int[l];
+	FileArray(){
+		mainArray = new int[0];
 	}
 	void readFile(String filename){
 		FileReader fr;
@@ -34,7 +34,12 @@ public class FileArray {
 		try {
 			FileWriter fw = new FileWriter(filename);
 			for (int i = 0; i < mainArray.length; i++){
-				fw.write(mainArray[i] + "\n");
+				if (i<mainArray.length - 1){
+					fw.write(mainArray[i] + ",");
+				}
+				else{
+					fw.write(mainArray[i]);
+				}
 			}
 			fw.close();
 		}catch(Exception e){
@@ -42,6 +47,7 @@ public class FileArray {
 		}
 	}
 	void enterArray(int[] a){
+		mainArray = a;
 		writeFile("out.txt");
 	}
 	int[] returnArray(){
