@@ -3,7 +3,6 @@ package filearray_20170111;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Scanner;
 
 public class FileArray {
 	private int[] mainArray;
@@ -27,7 +26,6 @@ public class FileArray {
 			mainArray = data;
 			br.close();
 		}catch(Exception e){
-			
 		}
 	}
 	void writeFile(String filename){
