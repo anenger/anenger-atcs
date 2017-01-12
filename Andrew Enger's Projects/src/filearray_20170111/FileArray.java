@@ -56,6 +56,27 @@ public class FileArray {
 		return mainArray.length;
 	}
 	
+	void resize(int size){
+		int[] copyArray = new int[mainArray.length + size];
+		for (int i = 0; i < mainArray.length; i++){
+			if (i < copyArray.length){
+				copyArray[i] = mainArray[i];
+			}
+		}
+		mainArray = copyArray;
+	}
+	
+	void push(int value){
+		resize(1);
+		mainArray[mainArray.length - 1] = value;
+	}
+
+	int pop(){
+		int value = mainArray[mainArray.length - 1];
+		resize(-1);
+		return value;
+	}
+	
 	public String toString(){
 		String csv = "";
 		for(int i = 0; i < mainArray.length; i++){
@@ -68,4 +89,13 @@ public class FileArray {
 		}
 		return csv;
 	}
+	
+//	void fill(int min, int max){
+//		int random = 0;
+//		int range = (max - min) + 1;
+//		for (int x = 0; x < mainArray.length; x++){
+//			random = (int)(Math.random() * range) + min;
+//			mainArray[x] = random;
+//		}
+//	}
 }
