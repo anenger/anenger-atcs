@@ -16,7 +16,6 @@ public class FileArray {
 			BufferedReader br = new BufferedReader(fr);
 			String input;
 			while((input = br.readLine()) != null){
-				input += input;
 			}
 			String[] sa = input.split(",");
 			int[] data = new int[sa.length];
@@ -28,6 +27,7 @@ public class FileArray {
 		}catch(Exception e){
 		}
 	}
+	
 	void writeFile(String filename){
 		try {
 			FileWriter fw = new FileWriter(filename);
@@ -44,9 +44,9 @@ public class FileArray {
 			
 		}
 	}
+	
 	void enterArray(int[] a){
 		mainArray = a;
-		writeFile("test.txt");
 	}
 	int[] returnArray(){
 		return mainArray;
@@ -54,5 +54,18 @@ public class FileArray {
 	
 	int length(){
 		return mainArray.length;
+	}
+	
+	public String toString(){
+		String csv = "";
+		for(int i = 0; i < mainArray.length; i++){
+			if (i < (mainArray.length - 1)){
+				csv += mainArray[i] + ",";
+			}
+			else{
+				csv += mainArray[i];
+			}
+		}
+		return csv;
 	}
 }
