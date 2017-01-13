@@ -5,6 +5,9 @@ public class Main {
 	public static void main(String[] args) {
 		FileArray a1 = new FileArray();
 		int[] array = new int[20];
+		for (int i = 0; i < array.length; i++){
+			array[i] = (int)(Math.random()*20);
+		}
 	//	a1.fill(0, 20);
 		a1.enterArray(array);
 		System.out.println(a1);

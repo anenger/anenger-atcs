@@ -15,9 +15,10 @@ public class FileArray {
 			fr = new FileReader(filename);
 			BufferedReader br = new BufferedReader(fr);
 			String input;
+			String[] sa;
 			while((input = br.readLine()) != null){
 			}
-			String[] sa = input.split(",");
+			sa = input.split(",");
 			int[] data = new int[sa.length];
 			for(int x = 0; x < sa.length; x++){
 				data[x] = Integer.parseInt(sa[x]);
