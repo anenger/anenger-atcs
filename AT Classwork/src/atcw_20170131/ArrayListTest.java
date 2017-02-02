@@ -14,6 +14,13 @@ public class ArrayListTest {
 		System.out.println(a1);
 		System.out.println(a2);
 		a1.set(2, "Stuff");
+		a1.forEach(e->{
+			System.out.println(e);
+			System.out.println(e);
+		});
+		System.out.println(a1.contains("Hello"));
+		
+		
 		
 		//a1.forEach(a1.get());
 		
