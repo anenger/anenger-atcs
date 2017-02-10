@@ -12,7 +12,9 @@ public class Item {
 		quantity = q;
 	}
 	
-	Item(){
+	Item(String n, String num){
+		name = n;
+		price = Double.parseDouble(num);
 	}
 	
 	Item(String num, String n, String p, String q){
