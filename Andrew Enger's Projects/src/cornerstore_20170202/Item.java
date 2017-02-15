@@ -1,5 +1,6 @@
 package cornerstore_20170202;
-
+//basic object class, has getters and setters for all variables, can take Strings as
+//a constructor
 public class Item {
 	private int number;
 	private String name;
@@ -18,10 +19,14 @@ public class Item {
 	}
 	
 	Item(String num, String n, String p, String q){
+		try{
 		number = Integer.parseInt(num);
 		name = n;
 		price = Double.parseDouble(p);
 		quantity = Integer.parseInt(q);
+		}catch(Exception e){
+			System.out.println(e);
+		}
 	}
 	
 	void setNumber(int num){
@@ -68,23 +73,6 @@ public class Item {
 	public String toString(){
 		return number + "," + name + "," + price + "," + quantity;
 	}
-	/*
-	void addProperty(Object o){
-		if (number == 0){
-			number = (int)o;
-		}
-		else if(name == null){
-			name = (String)o;
-		}
-		else if(price == 0){
-			price = (double)o;
-		}
-		else if(quantity == 0){
-			quantity = (int)o;
-		}
-	}
-	
-	*/
 	
 	
 }
