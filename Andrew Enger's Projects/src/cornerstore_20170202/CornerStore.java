@@ -90,8 +90,10 @@ public class CornerStore {
 					System.out.println("2. No");
 					int yn = input.nextInt();
 					if (yn == 1){
-						if (Manifest.get(searchindex).getQuantity() >= 1){
-							Manifest.get(searchindex).setQuantity(Manifest.get(searchindex).getQuantity() - 1);
+						int quantity = Manifest.get(searchindex).getQuantity();
+						if (quantity >= 1){
+							Manifest.get(searchindex).setQuantity(quantity - 1);
+							System.out.println("Purchased!");
 						}
 					}	
 					else{

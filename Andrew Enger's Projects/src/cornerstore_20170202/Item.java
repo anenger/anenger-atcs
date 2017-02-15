@@ -59,7 +59,7 @@ public class Item {
 	}
 	
 	void setQuantity(int q){
-		if (q > 0){
+		if (q > -1){
 			quantity = q;
 		}
 		else{
