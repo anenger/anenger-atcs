@@ -1,3 +1,5 @@
+//Andrew and Mikayla's Implementation of the Store
+
 package cornerstore_20170202;
 
 import java.util.ArrayList;
