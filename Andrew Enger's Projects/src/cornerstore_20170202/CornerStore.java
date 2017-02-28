@@ -1,3 +1,4 @@
+
 //Andrew and Mikayla's Implementation of the Store
 //February 15, 2017
 
@@ -94,6 +95,9 @@ public class CornerStore {
 						if (quantity >= 1){
 							Manifest.get(searchindex).setQuantity(quantity - 1);
 							System.out.println("Purchased!");
+						}
+						else{
+							System.out.println("Not enough books!");
 						}
 					}	
 					else{
