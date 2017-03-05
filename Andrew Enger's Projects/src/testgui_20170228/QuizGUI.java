@@ -20,6 +20,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	private Panel endPanel;
 	
 	private Label welcomeLabel;
+	private Label scoreLabel;
 	private Label questionLabel;
 	private Label answerLabel1;
 	private Label answerLabel2;
@@ -47,7 +48,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	QuizGUI(){
 		setLayout(null);
 		
-		font1 = new Font("Futura-Heavy", Font.PLAIN, 28);
+		font1 = new Font("Futura", Font.BOLD, 28);
 		font2 = new Font("Futura", Font.PLAIN, 26);
 		font3 = new Font("Futura", Font.BOLD, 18);
 		
@@ -67,6 +68,7 @@ public class QuizGUI extends Frame implements ActionListener {
 		bc = new Button();
 		bd = new Button();
 		
+		scoreLabel = new Label();
 		questionLabel = new Label();
 		answerLabel1 = new Label();
 		answerLabel2 = new Label();
@@ -117,35 +119,42 @@ public class QuizGUI extends Frame implements ActionListener {
 		pa3.setVisible(false);
 		pa3.setLayout(null);
 		
-		questionLabel.setBounds(100, 50, 800, 50);
+		scoreLabel.setBounds(50, 75, 200, 50);
+		scoreLabel.setFont(font1);
+		scoreLabel.setBackground(Color.WHITE);
+		scoreLabel.setAlignment(Label.CENTER);
+		scoreLabel.setText("");
+		scoreLabel.setVisible(true);
+		
+		questionLabel.setBounds(50, 50, 900, 50);
 		questionLabel.setText("");
 		questionLabel.setAlignment(Label.CENTER);
 		questionLabel.setVisible(true);
 		questionLabel.setFont(font1);
 		questionLabel.setBackground(Color.WHITE);
 		
-		answerLabel1.setBounds(100, 100, 800, 50);
+		answerLabel1.setBounds(50, 100, 900, 50);
 		answerLabel1.setText("");
 		answerLabel1.setAlignment(Label.CENTER);
 		answerLabel1.setVisible(true);
 		answerLabel1.setFont(font2);
 		answerLabel1.setBackground(Color.WHITE);
 		
-		answerLabel2.setBounds(100, 150, 800, 50);
+		answerLabel2.setBounds(50, 150, 900, 50);
 		answerLabel2.setText("");
 		answerLabel2.setAlignment(Label.CENTER);
 		answerLabel2.setVisible(true);
 		answerLabel2.setFont(font2);
 		answerLabel2.setBackground(Color.WHITE);
 		
-		answerLabel3.setBounds(100, 200, 800, 50);
+		answerLabel3.setBounds(50, 200, 900, 50);
 		answerLabel3.setText("");
 		answerLabel3.setAlignment(Label.CENTER);
 		answerLabel3.setVisible(true);
 		answerLabel3.setFont(font2);
 		answerLabel3.setBackground(Color.WHITE);
 		
-		answerLabel4.setBounds(100, 250, 800, 50);
+		answerLabel4.setBounds(50, 250, 900, 50);
 		answerLabel4.setText("");
 		answerLabel4.setAlignment(Label.CENTER);
 		answerLabel4.setVisible(true);
@@ -204,6 +213,8 @@ public class QuizGUI extends Frame implements ActionListener {
 		add(pa2);
 		add(pa3);
 		
+		pa1.add(scoreLabel);
+		
 		pa2.add(questionLabel);
 		pa2.add(answerLabel1);
 		pa2.add(answerLabel2);
@@ -236,6 +247,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	void nextScreen(){
 		whichQuestion++;
 		if (whichQuestion == 1){
+			scoreLabel.setText("Score: " + score + "/4");
 			questionLabel.setText("Who was the first president of the United States?");
 			answerLabel1.setText("A: George Washington");
 			answerLabel2.setText("B: Abraham Lincoln");
@@ -243,6 +255,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: Alexander Hamilton");
 		}
 		else if (whichQuestion == 2){
+			scoreLabel.setText("Score: " + score + "/4");
 			questionLabel.setText("When was the bombing of Pearl Harbor?");
 			answerLabel1.setText("A: September 3, 1939");
 			answerLabel2.setText("B: December 7, 1941");
@@ -250,6 +263,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: May 7, 1945");
 		}
 		else if (whichQuestion == 3){
+			scoreLabel.setText("Score: " + score + "/4");
 			questionLabel.setText("Who was the president during the Cuban Missile Crisis?");
 			answerLabel1.setText("A: Richard Nixon");
 			answerLabel2.setText("B: Dwight Eisenhower");
@@ -257,6 +271,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: Harry Truman");
 		}
 		else if (whichQuestion == 4){
+			scoreLabel.setText("Score: " + score + "/4");
 			questionLabel.setText("What is the capital of New York State?");
 			answerLabel1.setText("A: New York City");
 			answerLabel2.setText("B: Albany");
