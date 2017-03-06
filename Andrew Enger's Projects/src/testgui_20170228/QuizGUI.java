@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import javax.imageio.*;
 
 @SuppressWarnings("serial")
 public class QuizGUI extends Frame implements ActionListener {
@@ -235,8 +238,6 @@ public class QuizGUI extends Frame implements ActionListener {
 		setResizable(false);
 		setSize(1000,750);
 		setVisible(true);
-		
-	
 	}
 	
 	public static void main(String[] args){
@@ -247,7 +248,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	void nextScreen(){
 		whichQuestion++;
 		if (whichQuestion == 1){
-			scoreLabel.setText("Score: " + score + "/4");
+			scoreLabel.setText("Score: " + score + "/6");
 			questionLabel.setText("Who was the first president of the United States?");
 			answerLabel1.setText("A: George Washington");
 			answerLabel2.setText("B: Abraham Lincoln");
@@ -255,7 +256,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: Alexander Hamilton");
 		}
 		else if (whichQuestion == 2){
-			scoreLabel.setText("Score: " + score + "/4");
+			scoreLabel.setText("Score: " + score + "/6");
 			questionLabel.setText("When was the bombing of Pearl Harbor?");
 			answerLabel1.setText("A: September 3, 1939");
 			answerLabel2.setText("B: December 7, 1941");
@@ -263,7 +264,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: May 7, 1945");
 		}
 		else if (whichQuestion == 3){
-			scoreLabel.setText("Score: " + score + "/4");
+			scoreLabel.setText("Score: " + score + "/6");
 			questionLabel.setText("Who was the president during the Cuban Missile Crisis?");
 			answerLabel1.setText("A: Richard Nixon");
 			answerLabel2.setText("B: Dwight Eisenhower");
@@ -271,7 +272,7 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: Harry Truman");
 		}
 		else if (whichQuestion == 4){
-			scoreLabel.setText("Score: " + score + "/4");
+			scoreLabel.setText("Score: " + score + "/6");
 			questionLabel.setText("What is the capital of New York State?");
 			answerLabel1.setText("A: New York City");
 			answerLabel2.setText("B: Albany");
@@ -279,11 +280,27 @@ public class QuizGUI extends Frame implements ActionListener {
 			answerLabel4.setText("D: Syracuse");
 		}
 		else if (whichQuestion == 5){
+			scoreLabel.setText("Score: " + score + "/6");
+			questionLabel.setText("Which president had the shortest time in office?");
+			answerLabel1.setText("A: William Henry Harrison");
+			answerLabel2.setText("B: Zachary Taylor");
+			answerLabel3.setText("C: James A. Garfield");
+			answerLabel4.setText("D: Warren G. Harding");
+		}
+		else if (whichQuestion == 6){
+			scoreLabel.setText("Score: " + score + "/6");
+			questionLabel.setText("Which president had a Ph.D?");
+			answerLabel1.setText("A: Bill Clinton");
+			answerLabel2.setText("B: Gerald Ford");
+			answerLabel3.setText("C: George W. Bush");
+			answerLabel4.setText("D: Woodrow Wilson");
+		}
+		else if (whichQuestion == 7){
 			pa1.setVisible(false);
 			pa2.setVisible(false);
 			pa3.setVisible(false);
 			endPanel.setVisible(true);
-			endLabel.setText("Your score is: " + score + "/4");
+			endLabel.setText("Your score is: " + score + "/6");
 		}
 	}
 	
@@ -298,6 +315,12 @@ public class QuizGUI extends Frame implements ActionListener {
 			score++;
 		}
 		else if (answer.equals("B") && whichQuestion == 4){
+			score++;
+		}
+		else if (answer.equals("A") && whichQuestion == 5){
+			score++;
+		}
+		else if (answer.equals("D") && whichQuestion == 6){
 			score++;
 		}
 		System.out.println(score);
