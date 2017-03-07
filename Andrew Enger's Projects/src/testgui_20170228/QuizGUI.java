@@ -16,6 +16,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	private int whichQuestion = 0;
 	private int score = 0;
 	
+	//Setting up variables, panels, buttons, labels
 	private Panel pa1;
 	private Panel pa2;
 	private Panel pa3;
@@ -51,6 +52,7 @@ public class QuizGUI extends Frame implements ActionListener {
 	QuizGUI(){
 		setLayout(null);
 		
+		//Creating new instances of panel, label, font, etc in order to edit them
 		font1 = new Font("Futura", Font.BOLD, 28);
 		font2 = new Font("Futura", Font.PLAIN, 26);
 		font3 = new Font("Futura", Font.BOLD, 18);
@@ -82,6 +84,7 @@ public class QuizGUI extends Frame implements ActionListener {
 		restartButton = new Button();
 		endLabel = new Label();
 		
+		//setting the properties of each object
 		welcomePanel.setBounds(0, 0, 1000, 750);
 		welcomePanel.setBackground(Color.BLUE);
 		welcomePanel.setVisible(true);
@@ -245,6 +248,7 @@ public class QuizGUI extends Frame implements ActionListener {
 		QuizGUI gui = new QuizGUI();
 	}
 	
+	//used to change the screen of the program
 	void nextScreen(){
 		whichQuestion++;
 		if (whichQuestion == 1){
@@ -304,6 +308,7 @@ public class QuizGUI extends Frame implements ActionListener {
 		}
 	}
 	
+	//used to check if the answer is correct
 	void checkQuestion(String answer){
 		if (answer.equals("A") && whichQuestion == 1){
 			score++;
