@@ -67,14 +67,10 @@ public class GUI {
 			}
 			else if (command == "schedule"){
 				if (users.getSize() != 0){
-					String first = (String)JOptionPane.showInputDialog(mainFrame, "Pick yourself: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null);
-					User firstUser = users.find(first);
-					System.out.println(firstUser.getName() + first);
+					User firstUser = users.find((String)JOptionPane.showInputDialog(mainFrame, "Pick yourself: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null));
 					if (firstUser != null){
-						String second = (String)JOptionPane.showInputDialog(mainFrame, "Pick another user: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null);
-						User secondUser = users.find(second);
+						User secondUser = users.find((String)JOptionPane.showInputDialog(mainFrame, "Pick another user: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null));
 						firstUser.addAppointment(new Appointment(firstUser, secondUser, "", ""));
-						System.out.println(firstUser.getAppointments());
 					}
 				
 			}
