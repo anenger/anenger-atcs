@@ -12,26 +12,32 @@ public class GUI {
 	private JTextArea ta;
 	private Database users;
 	private JComboBox userComboBox;
-	
+	private JDialog schedulePopup;
+	private String[] bandArray;
+
 	GUI(Database _users) {
 		users = _users;
 		mainFrame = new JFrame("Scheduler");
 	    mainFrame.setSize(1000,600);
-	    mainFrame.setLayout(new FlowLayout());
+	    mainFrame.setLayout(null);
 	    
 	    addButton = new JButton("Add User");
 	    addButton.setActionCommand("add");
+	    addButton.setBounds(450, 400, 100, 25);
 	    addButton.addActionListener(new ButtonClickListener());
 	    
 	    getButton = new JButton("Get Users");
 	    getButton.setActionCommand("get");
+	    getButton.setBounds(600, 135, 100, 25);
 	    getButton.addActionListener(new ButtonClickListener());
 	    
 	    removeButton = new JButton("Schedule Appointment");
 	    removeButton.setActionCommand("schedule");
+	    removeButton.setBounds(400, 425, 200, 25);
 	    removeButton.addActionListener(new ButtonClickListener());
 	    
-	    ta = new JTextArea("", 15, 30);
+	    ta = new JTextArea("");
+	    ta.setBounds(400, 100, 200, 100);
 	    
 	    mainFrame.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent windowEvent){
@@ -44,16 +50,6 @@ public class GUI {
 	    mainFrame.add(ta);
 	    mainFrame.setVisible(true);  
 	}
-	/*
-	void showUsers(){
-		String[] usernames = new String[users.getSize()];
-		for (int x = 0; x < usernames.length; x++){
-			usernames[x] = users.getUser(x).getName();
-		}
-		userComboBox = new JComboBox<Object>(usernames);
-		mainFrame.add(userComboBox);
-	}
-	*/
 	
 	private class ButtonClickListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -61,7 +57,8 @@ public class GUI {
 			if (command == "add"){
 				String name = JOptionPane.showInputDialog("Enter full name: ");
 				if (name != null){
-					users.add(new User(name));
+					users.add(new Student(name));
+					
 				}
 				ta.setText(users.toString());
 			}
@@ -69,8 +66,20 @@ public class GUI {
 				ta.setText(users.toString());
 			}
 			else if (command == "schedule"){
-				showUsers();
+				if (users.getSize() != 0){
+					String first = (String)JOptionPane.showInputDialog(mainFrame, "Pick yourself: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null);
+					User firstUser = users.find(first);
+					System.out.println(firstUser.getName() + first);
+					if (firstUser != null){
+						String second = (String)JOptionPane.showInputDialog(mainFrame, "Pick another user: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null);
+						User secondUser = users.find(second);
+						firstUser.addAppointment(new Appointment(firstUser, secondUser, "", ""));
+						System.out.println(firstUser.getAppointments());
+					}
+				
 			}
+				
 		}		
 	}
+}
 }
