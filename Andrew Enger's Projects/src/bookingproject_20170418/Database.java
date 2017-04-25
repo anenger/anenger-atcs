@@ -21,6 +21,22 @@ public class Database {
 		return userList.add(_user);
 	}
 	
+	User getUser(int x){
+		return userList.get(x);
+	}
+	
+	User[] getUsers(){
+		User[] users = new User[userList.size()];
+		for (int x = 0; x < userList.size(); x++){
+			users[x] = userList.get(x);
+		}
+		return users;
+	}
+	
+	int getSize(){
+		return userList.size();
+	}
+	
 	public String toString(){
 		String users = "";
 		for(int x = 0; x < userList.size(); x++){
