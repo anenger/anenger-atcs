@@ -71,6 +71,7 @@ public class GUI {
 					if (firstUser != null){
 						User secondUser = users.find((String)JOptionPane.showInputDialog(mainFrame, "Pick another user: ", "Schedule Appointment", JOptionPane.PLAIN_MESSAGE, null, users.getUsernames(), null));
 						firstUser.addAppointment(new Appointment(firstUser, secondUser, "", ""));
+						secondUser.addAppointment(new Appointment(firstUser, secondUser, "", ""));
 					}
 				
 			}
