@@ -36,17 +36,16 @@ public class Database {
 	String[] getUsernames(){
 		String[] usernames = new String[userList.size()];
 		for (int x = 0; x < userList.size(); x++){
-			usernames[x] = userList.get(x).getName() + ", " + userList.get(x).getClass().getSimpleName();
+			usernames[x] = userList.get(x).getName();
 		}
 		return usernames;
 	}
 	
-	User find(String _user){
+	User find(String _userid){
 		User user;
-		String userString;
 		for (int x = 0; x < userList.size(); x++){
-			userString = userList.get(x).getName() + ", " + userList.get(x).getClass().getSimpleName();
-			if (userString.compareTo(_user) == 0){
+			String idString = userList.get(x).getID();
+			if (idString.compareTo(_userid) == 0){
 				user = userList.get(x);
 				return user;
 			}
