@@ -7,21 +7,18 @@ import javax.swing.*;
 public class GUI {
 	private JFrame mainFrame;
 	private JPanel loginPanel;
-	private JPanel createPanel;
 	private JPanel userPanel;
 	private JButton loginButton;
 	private JButton createAccountButton;
 	private JButton addButton;
 	private JButton getButton;
 	private JButton removeButton;
+	private JButton backButton;
 	private JLabel headerLabel;
 	private JTextField usernametf;
 	private JPasswordField passwordtf;
 	private JTextArea ta;
 	private Database users;
-	private JComboBox userComboBox;
-	private JDialog schedulePopup;
-	private String[] bandArray;
 
 	GUI(Database _users) {
 		users = _users;
@@ -79,6 +76,11 @@ public class GUI {
 	    removeButton.setBounds(400, 425, 200, 25);
 	    removeButton.addActionListener(new ButtonClickListener());
 	    
+	    backButton = new JButton("Back");
+	    backButton.setActionCommand("back");
+	    backButton.setBounds(50, 50, 50, 50);
+	    backButton.addActionListener(new ButtonClickListener());
+	    
 	    ta = new JTextArea("");
 	    ta.setBounds(400, 100, 200, 100);
 	    
@@ -96,6 +98,13 @@ public class GUI {
 	    loginPanel.add(usernametf);
 	    loginPanel.add(passwordtf);
 	    loginPanel.setVisible(true);
+
+	    userPanel.add(backButton);
+		userPanel.add(getButton);
+		userPanel.add(removeButton);
+		userPanel.add(addButton);
+		userPanel.add(ta);
+		userPanel.setVisible(false);
 	    
 	    mainFrame.add(loginPanel);
 	    mainFrame.add(userPanel);
@@ -103,34 +112,29 @@ public class GUI {
 	}
 	
 	void login(){
+		try{
 		if ((usernametf.getText().equals("admin")) && 
 				(new String(passwordtf.getPassword()).equals("password"))){
 				mainFrame.setTitle("Admin");
 				headerLabel.setText("Administrator Access");
-				userPanel.add(headerLabel);
-				userPanel.add(getButton);
-				userPanel.add(removeButton);
-				userPanel.add(addButton);
-				userPanel.add(ta);
-				loginPanel.setVisible(false);
-				userPanel.setVisible(true);
 		}else if(users.find(usernametf.getText()).getPassword().equals(new String(passwordtf.getPassword()))){
-				mainFrame.setTitle("Admin");
+				mainFrame.setTitle("User");
 				headerLabel.setText("Welcome " + users.find(usernametf.getText()).getName());
-				userPanel.add(headerLabel);
-				userPanel.add(getButton);
-				userPanel.add(removeButton);
-				userPanel.add(addButton);
-				userPanel.add(ta);
-				loginPanel.setVisible(false);
-				userPanel.setVisible(true);
+		}
+		userPanel.add(headerLabel);
+		loginPanel.setVisible(false);
+		userPanel.setVisible(true);
+		usernametf.setText(null);
+		passwordtf.setText(null);
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(mainFrame, "Your username or password is incorrect");
 		}
 	}
 	
-	boolean createUser(){
-		String name = JOptionPane.showInputDialog("Enter full name: ");
-		if (name != null){
-			if (users.find(name) == null){
+	void createUser(){
+		String name = JOptionPane.showInputDialog(mainFrame, "Enter full name: ");
+		String id = name.substring(0, 2).toLowerCase() + name.substring(name.indexOf(' ') + 1, name.length()).toLowerCase(); 
+		if (name != null && users.find(id) == null){
 				String type = (String)JOptionPane.showInputDialog(mainFrame, 
 						"Select user type: ", 
 						"User Type", 
@@ -139,17 +143,20 @@ public class GUI {
 						new String[]{"Student","Teacher"}, 
 						"Student");
 				if (type.equals("Student")){
-					users.add(new Student(name));
+					String password = (String)JOptionPane.showInputDialog(mainFrame,
+							"Enter a password");
+					users.add(new Student(name, password));
 				}else if (type.equals("Teacher")){
-					users.add(new Teacher(name));
+					String teacherPass = (String)JOptionPane.showInputDialog(mainFrame,
+							"Enter the special teacher code");
+					if (teacherPass.equals("packer")){
+						String password = (String)JOptionPane.showInputDialog(mainFrame,
+								"Enter a password");
+						users.add(new Teacher(name, password));
+					}
 				}
-				return true;
-			}else{
-				JOptionPane.showMessageDialog(mainFrame, "This user already exists");
-				return false;
-			}
-		}else{
-			return false;
+		}else if(users.find(id) != null){
+			JOptionPane.showMessageDialog(mainFrame, "This user already exists");
 		}
 	}
 	
@@ -172,10 +179,14 @@ public class GUI {
 				login();
 			}
 			else if (command == "create"){
-				
+				createUser();
 			}
 			else if	(command == "back"){
-				
+				mainFrame.setTitle("Login");
+				headerLabel.setText("Welcome to the PCI Scheduler!");
+				loginPanel.add(headerLabel);
+				loginPanel.setVisible(true);
+				userPanel.setVisible(false);
 			}
 			else if (command == "add"){
 				createUser();
