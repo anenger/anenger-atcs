@@ -21,6 +21,10 @@ public class Database {
 		return userList.add(_user);
 	}
 	
+	boolean set(int x, User _user){
+		return (userList.set(x, _user) != null);
+	}
+	
 	User getUser(int x){
 		return userList.get(x);
 	}
@@ -51,6 +55,15 @@ public class Database {
 			}
 		}
 		return null;
+	}
+	
+	int findIndex(String _userid){
+		for (int x = 0; x < userList.size(); x++){
+			if (userList.get(x).getID().equals(_userid)){
+				return x;
+			}
+		}
+		return -1;
 	}
 	
 	int getSize(){

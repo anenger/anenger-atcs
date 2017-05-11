@@ -22,6 +22,13 @@ public class User {
 		appointments = new ArrayList<Appointment>();
 	}
 	
+	User(String _name, String _password, String _id){
+		name = _name;
+		password = _password;
+		id = _id;
+		appointments = new ArrayList<Appointment>();
+	}
+	
 	String getName(){
 		return name;
 	}
@@ -38,7 +45,23 @@ public class User {
 		return appointments;
 	}
 	
+	Appointment getAppointment(int x){
+		return appointments.get(x);
+	}
+	
+	Object[][] getAppointmentsArray(){
+		Object[][] array = new Object[appointments.size()][1];
+		for (int x = 0; x < appointments.size(); x++){
+			array[x][0] = appointments.get(x);
+		}
+		return array;
+	}
+	
 	void addAppointment(Appointment _appointment){
 		appointments.add(_appointment);
+	}
+	
+	public String toString(){
+		return name;
 	}
 }

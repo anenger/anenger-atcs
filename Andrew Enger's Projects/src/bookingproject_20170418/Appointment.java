@@ -12,4 +12,8 @@ public class Appointment {
 		band = _band;
 		room = _room;
 	}
+	
+	public String toString(){
+		return fromUser.toString() + ", " + toUser.toString() + ", " + band + ", " + room;
+	}
 }
