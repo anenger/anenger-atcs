@@ -28,7 +28,7 @@ public class Database {
 	User getUser(int x){
 		return userList.get(x);
 	}
-	
+	//returns an array of the arraylist userList
 	User[] getUsers(){
 		User[] users = new User[userList.size()];
 		for (int x = 0; x < userList.size(); x++){

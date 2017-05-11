@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class GUI {
+	//setting up variables for gui, database, etc
 	private JFrame mainFrame;
 	private JPanel loginPanel;
 	private JPanel userPanel;
@@ -25,6 +26,7 @@ public class GUI {
 	private Database users;
 	private User loggedIn;
 
+	//constructor for gui
 	GUI(Database _users) {
 		users = _users;
 		mainFrame = new JFrame("Login");
@@ -122,6 +124,7 @@ public class GUI {
 	    mainFrame.setVisible(true);
 	}
 	
+	//logs in a user and returns the logged in user
 	User login(){
 		User user1 = null;
 		try{
@@ -164,6 +167,7 @@ public class GUI {
 		return user1;
 	}
 	
+	//creates a new user
 	void createUser(){
 		String firstname;
 		String lastname;
@@ -232,7 +236,7 @@ public class GUI {
 	}
 	
 	*/
-	
+	//listener for login screen textboxes
 	private class KeyboardListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			String command = e.getActionCommand();
@@ -244,7 +248,7 @@ public class GUI {
 		}
 	}
 	
-	
+	//button listener for all buttons
 	private class ButtonClickListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
@@ -276,6 +280,7 @@ public class GUI {
 				}
 				ta.setText(appointmentString);
 			}
+			//adds appointment
 			else if (command == "schedule"){
 				try{
 					if (users.getSize() >= 2){
