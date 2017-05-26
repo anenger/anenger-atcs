@@ -27,6 +27,11 @@ import org.json.JSONObject;
 
 public class ColorPicker extends Frame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4445565923201943991L;
+
 	private Panel pa1;
 
 	private JColorChooser colorPicker;
@@ -44,9 +49,9 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	private JLabel size;
 	
-	private JList text;
+	private JList<Object> text;
 	private JScrollPane scroll;
-	private DefaultListModel listModel;
+	private DefaultListModel<Object> listModel;
 	
 	private String[] colors = get();
 	private ArrayList<JButton> buttons = new ArrayList<JButton>();
@@ -127,7 +132,7 @@ public class ColorPicker extends Frame implements ActionListener{
 		listModel = new DefaultListModel<Object>();
 		updateList(saved);
 		
-		text = new JList(listModel);
+		text = new JList<Object>(listModel);
 		
 		scroll.setViewportView(text);
 		scroll.setBounds(40*(squareLength) + 340, 40, 240, 80);
@@ -155,6 +160,7 @@ public class ColorPicker extends Frame implements ActionListener{
 	}
 	
 	public static void main(String[] args){
+		@SuppressWarnings("unused")
 		ColorPicker app = new ColorPicker();
 	}
 	
@@ -342,7 +348,7 @@ public class ColorPicker extends Frame implements ActionListener{
 				String name = JOptionPane.showInputDialog(pa1, "Enter name of design", null);
 				if (name != null){
 					ArrayList<String> design = new ArrayList<String>(Arrays.asList(colors));
-					design.add(0, name);
+					design.add(0, name + " (" + squareLength + "x" + squareLength + ")");
 					saved.add(design);
 					writeFile("images.csv", saved);
 				}
