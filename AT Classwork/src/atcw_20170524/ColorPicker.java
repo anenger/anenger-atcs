@@ -33,12 +33,13 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	private Integer currentButton;
 	
-	private Color current;
+	private Color current = Color.WHITE;
 
 	private JButton send;
 	private JButton setAll;
 	private JButton update;
 	private JButton save;
+	private JButton saveas;
 	private JButton load;
 	
 	private JLabel size;
@@ -61,7 +62,7 @@ public class ColorPicker extends Frame implements ActionListener{
 		
 		pa1 = new Panel();
 		pa1.setLayout(null);
-		pa1.setBounds(40, 60, 80 + 40*squareLength + 500, 100 + 40*squareLength);
+		pa1.setBounds(40, 60, 80 + 40*squareLength + 700, 200 + 40*squareLength);
 		
 		for(int x = 0; x < colors.length; x++){
 			buttons.add(new JButton());
@@ -75,10 +76,10 @@ public class ColorPicker extends Frame implements ActionListener{
 		}
 		
 		colorPicker = new JColorChooser();
-		colorPicker.setBounds(40*(squareLength) + 20, 160, 500, 200);
+		colorPicker.setBounds(40*(squareLength) + 20, 140, 675, 300);
 		colorPicker.getSelectionModel().addChangeListener(new ColorSelection());
 		colorPicker.setPreviewPanel(new JPanel());
-		colorPicker.setChooserPanels(new AbstractColorChooserPanel[]{colorPicker.getChooserPanels()[0]});
+		colorPicker.setChooserPanels(new AbstractColorChooserPanel[]{colorPicker.getChooserPanels()[0], colorPicker.getChooserPanels()[1]});
 		
 		send = new JButton();
 		send.setBounds(40*(squareLength) + 20, 0, 80, 40);
@@ -104,6 +105,12 @@ public class ColorPicker extends Frame implements ActionListener{
 		save.setActionCommand("save");
 		save.addActionListener(new ButtonClickListener());
 		
+		saveas = new JButton();
+		saveas.setBounds(40*(squareLength) + 500, 0, 80, 40);
+		saveas.setText("Save As");
+		saveas.setActionCommand("saveas");
+		saveas.addActionListener(new ButtonClickListener());
+		
 		load = new JButton();
 		load.setBounds(40*(squareLength) + 420, 0, 80, 40);
 		load.setText("Load");
@@ -123,9 +130,9 @@ public class ColorPicker extends Frame implements ActionListener{
 		text = new JList(listModel);
 		
 		scroll.setViewportView(text);
-		scroll.setBounds(40*(squareLength) + 340, 40, 160, 80);
+		scroll.setBounds(40*(squareLength) + 340, 40, 240, 80);
 		
-		setSize(80 + 40*squareLength + 500, 100 + 40*squareLength);
+		setSize(80 + 40*squareLength + 700, 200 + 40*squareLength);
 		
 		addWindowListener(new WindowAdapter() {
 	          @Override
@@ -139,6 +146,7 @@ public class ColorPicker extends Frame implements ActionListener{
 		pa1.add(colorPicker);
 		pa1.add(save);
 		pa1.add(load);
+		pa1.add(saveas);
 		pa1.add(scroll);
 		pa1.add(size);
 		pa1.setVisible(true);
@@ -187,7 +195,6 @@ public class ColorPicker extends Frame implements ActionListener{
 			while((input = br.readLine()) != null){
 				datastring.add(input);
 			}
-			//System.out.println(datastring.size());
 			for (int i = 0; i < datastring.size(); i++){
 				ArrayList<String> list = new ArrayList<String>(Arrays.asList(datastring.get(i).split(",")));
 				try{
@@ -268,11 +275,29 @@ public class ColorPicker extends Frame implements ActionListener{
 	}
 	
 	void updateColors(){
-		colors = get();
-		if (colors != null){
+		String[] newColors = get();
+		if (newColors != null){
+			colors = newColors;
+			squareLength = (int)Math.sqrt(colors.length);
 			for (int x = 0; x < colors.length; x++){
 				buttons.get(x).setBackground(hex2Rgb(colors[x]));
 			}
+		}
+	}
+	
+	void redraw(){
+		for (int x = 0; x < buttons.size(); x++){
+			if (buttons.get(x) != null)	pa1.remove(buttons.get(x));
+		}
+		for(int x = 0; x < colors.length; x++){
+			buttons.add(new JButton());
+			buttons.get(x).setBounds(40*(x%squareLength), 40*(x/squareLength), 40, 40);
+			buttons.get(x).setActionCommand(x + "");
+			buttons.get(x).addActionListener(new ButtonClickListener());
+			buttons.get(x).setBackground(hex2Rgb(colors[x]));
+			buttons.get(x).setOpaque(true);
+			buttons.get(x).setBorderPainted(false);
+			pa1.add(buttons.get(x));
 		}
 	}
 	
@@ -295,12 +320,25 @@ public class ColorPicker extends Frame implements ActionListener{
 				}
 			}
 			else if(e.getActionCommand() == "update"){
+				int sl = squareLength;
 				updateColors();
+				if (sl != squareLength){
+					redraw();
+				}
 			}
 			else if(e.getActionCommand() == "setAll"){
 				setAll(current);
 			}
 			else if(e.getActionCommand() == "save"){
+				int index = text.getSelectedIndex();
+				if (index != -1){
+					ArrayList<String> design = new ArrayList<String>(Arrays.asList(colors));
+					design.add(0, saved.get(index).get(0));
+					saved.set(index, design);
+					writeFile("images.csv", saved);
+				}
+			}
+			else if(e.getActionCommand() == "saveas"){
 				String name = JOptionPane.showInputDialog(pa1, "Enter name of design", null);
 				if (name != null){
 					ArrayList<String> design = new ArrayList<String>(Arrays.asList(colors));
@@ -331,6 +369,7 @@ public class ColorPicker extends Frame implements ActionListener{
 	 class ColorSelection implements ChangeListener {
 	        public void stateChanged(ChangeEvent e) {
 	            current = colorPicker.getColor();
+	            System.out.println(current.toString());
 	        }
 	    }
 
