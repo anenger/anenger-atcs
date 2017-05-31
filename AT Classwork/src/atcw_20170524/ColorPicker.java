@@ -32,7 +32,8 @@ public class ColorPicker extends Frame implements ActionListener{
 	 */
 	private static final long serialVersionUID = -4445565923201943991L;
 
-	private Panel pa1;
+	private Panel buttonPanel;
+	private Panel controlPanel;
 
 	private JColorChooser colorPicker;
 	
@@ -65,65 +66,69 @@ public class ColorPicker extends Frame implements ActionListener{
 		setBackground(new Color(0,255,187));
 		setTitle("Paint By Numbers");
 		
-		pa1 = new Panel();
-		pa1.setLayout(null);
-		pa1.setBounds(40, 60, 80 + 40*squareLength + 700, 200 + 40*squareLength);
+		buttonPanel = new Panel();
+		buttonPanel.setLayout(null);
+		buttonPanel.setBounds(40, 60, squareLength*squareLength, squareLength*squareLength);
+		
+		controlPanel = new Panel();
+		controlPanel.setLayout(null);
+		controlPanel.setBounds(squareLength*squareLength + 40, 40, 600, 600);
 		
 		for(int x = 0; x < colors.length; x++){
 			buttons.add(new JButton());
-			buttons.get(x).setBounds(40*(x%squareLength), 40*(x/squareLength), 40, 40);
+			buttons.get(x).setBounds(squareLength*(x%squareLength), squareLength*(x/squareLength), squareLength, squareLength);
 			buttons.get(x).setActionCommand(x + "");
 			buttons.get(x).addActionListener(new ButtonClickListener());
 			buttons.get(x).setBackground(hex2Rgb(colors[x]));
 			buttons.get(x).setOpaque(true);
 			buttons.get(x).setBorderPainted(false);
-			pa1.add(buttons.get(x));
+			buttonPanel.add(buttons.get(x));
 		}
 		
 		colorPicker = new JColorChooser();
-		colorPicker.setBounds(40*(squareLength) + 20, 140, 675, 300);
+		colorPicker.setBounds(20, 140, 675, 300);
 		colorPicker.getSelectionModel().addChangeListener(new ColorSelection());
 		colorPicker.setPreviewPanel(new JPanel());
 		colorPicker.setChooserPanels(new AbstractColorChooserPanel[]{colorPicker.getChooserPanels()[0], colorPicker.getChooserPanels()[1]});
 		
 		send = new JButton();
-		send.setBounds(40*(squareLength) + 20, 0, 80, 40);
+		send.setBounds(20, 0, 80, 40);
 		send.setText("Send");
 		send.setActionCommand("send");
 		send.addActionListener(new ButtonClickListener());
 		
 		setAll = new JButton();
-		setAll.setBounds(40*(squareLength) + 100, 0, 80, 40);
+		setAll.setBounds(100, 0, 80, 40);
 		setAll.setText("Set all");
 		setAll.setActionCommand("setAll");
 		setAll.addActionListener(new ButtonClickListener());
 		
 		update = new JButton();
-		update.setBounds(40*(squareLength) + 180, 0, 80, 40);
+		update.setBounds(180, 0, 80, 40);
 		update.setText("Update");
 		update.setActionCommand("update");
 		update.addActionListener(new ButtonClickListener());
 		
 		save = new JButton();
-		save.setBounds(40*(squareLength) + 340, 0, 80, 40);
+		save.setBounds(340, 0, 80, 40);
 		save.setText("Save");
 		save.setActionCommand("save");
 		save.addActionListener(new ButtonClickListener());
 		
 		saveas = new JButton();
-		saveas.setBounds(40*(squareLength) + 500, 0, 80, 40);
+		saveas.setBounds(500, 0, 80, 40);
 		saveas.setText("Save As");
 		saveas.setActionCommand("saveas");
 		saveas.addActionListener(new ButtonClickListener());
 		
 		load = new JButton();
-		load.setBounds(40*(squareLength) + 420, 0, 80, 40);
+		load.setBounds(420, 0, 80, 40);
 		load.setText("Load");
 		load.setActionCommand("load");
 		load.addActionListener(new ButtonClickListener());
 		
 		size = new JLabel(squareLength + " x " + squareLength);
-	    size.setBounds(40*(squareLength) + 20, 60, 80, 40);
+	    size.setBounds(20, 60, 80, 40);
 	    size.setHorizontalAlignment(JLabel.LEFT);
 	    size.setFont(new Font("Futura", Font.PLAIN, 20));
 		
@@ -135,9 +140,9 @@ public class ColorPicker extends Frame implements ActionListener{
 		text = new JList<Object>(listModel);
 		
 		scroll.setViewportView(text);
-		scroll.setBounds(40*(squareLength) + 340, 40, 240, 80);
+		scroll.setBounds(340, 40, 240, 80);
 		
-		setSize(80 + 40*squareLength + 700, 200 + 40*squareLength);
+		setSize(650 + squareLength*squareLength, 80 + squareLength*squareLength);
 		
 		addWindowListener(new WindowAdapter() {
 	          @Override
@@ -145,17 +150,19 @@ public class ColorPicker extends Frame implements ActionListener{
 	             System.exit(0);  // terminate the program
 	          }
 	      });
-		pa1.add(send);
-		pa1.add(setAll);
-		pa1.add(update);
-		pa1.add(colorPicker);
-		pa1.add(save);
-		pa1.add(load);
-		pa1.add(saveas);
-		pa1.add(scroll);
-		pa1.add(size);
-		pa1.setVisible(true);
-		add(pa1);
+		controlPanel.add(send);
+		controlPanel.add(setAll);
+		controlPanel.add(update);
+		controlPanel.add(colorPicker);
+		controlPanel.add(save);
+		controlPanel.add(load);
+		controlPanel.add(saveas);
+		controlPanel.add(scroll);
+		controlPanel.add(size);
+		controlPanel.setVisible(true);
+		buttonPanel.setVisible(true);
+		add(buttonPanel);
+		add(controlPanel);
 		setVisible(true);
 	}
 	
@@ -250,9 +257,15 @@ public class ColorPicker extends Frame implements ActionListener{
 	}
 	
 	void setAll(ArrayList<String> c){
-		for (int x = 0; x<buttons.size(); x++){
-			buttons.get(x).setBackground(hex2Rgb(c.get(x + 1)));
-			colors[x] = Rgb2hex(hex2Rgb(c.get(x + 1)).getRed(), hex2Rgb(c.get(x + 1)).getGreen(), hex2Rgb(c.get(x + 1)).getBlue());
+		int length = new Integer(c.get(0).substring(c.get(0).indexOf("(") + 1, c.get(0).indexOf("(") + 3));
+		for (int x = 0; x<length; x++){
+			for(int y = 0; y < length; y++){
+				
+			}
+			/*
+			buttons.get(x%length).setBackground(hex2Rgb(c.get(x%length + 1)));
+			colors[x%length] = Rgb2hex(hex2Rgb(c.get(x%length + 1)).getRed(), hex2Rgb(c.get(x%length + 1)).getGreen(), hex2Rgb(c.get(x%length + 1)).getBlue());
+			*/
 		}
 	}
 	
@@ -293,8 +306,9 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	void redraw(){
 		for (int x = 0; x < buttons.size(); x++){
-			if (buttons.get(x) != null)	pa1.remove(buttons.get(x));
+			if (buttons.get(x) != null)	buttons.remove(buttons.get(x));
 		}
+		buttonPanel.repaint();
 		for(int x = 0; x < colors.length; x++){
 			buttons.add(new JButton());
 			buttons.get(x).setBounds(40*(x%squareLength), 40*(x/squareLength), 40, 40);
@@ -303,7 +317,7 @@ public class ColorPicker extends Frame implements ActionListener{
 			buttons.get(x).setBackground(hex2Rgb(colors[x]));
 			buttons.get(x).setOpaque(true);
 			buttons.get(x).setBorderPainted(false);
-			pa1.add(buttons.get(x));
+			buttonPanel.add(buttons.get(x));
 		}
 	}
 	
@@ -345,7 +359,7 @@ public class ColorPicker extends Frame implements ActionListener{
 				}
 			}
 			else if(e.getActionCommand() == "saveas"){
-				String name = JOptionPane.showInputDialog(pa1, "Enter name of design", null);
+				String name = JOptionPane.showInputDialog(buttonPanel, "Enter name of design", null);
 				if (name != null){
 					ArrayList<String> design = new ArrayList<String>(Arrays.asList(colors));
 					design.add(0, name + " (" + squareLength + "x" + squareLength + ")");
