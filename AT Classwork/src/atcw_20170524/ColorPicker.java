@@ -258,14 +258,11 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	void setAll(ArrayList<String> c){
 		int length = new Integer(c.get(0).substring(c.get(0).indexOf("(") + 1, c.get(0).indexOf("(") + 3));
-		for (int x = 0; x<length; x++){
-			for(int y = 0; y < length; y++){
-				
-			}
-			/*
+		boolean done = false;
+		int x = 0;
+		while (done == false){
 			buttons.get(x%length).setBackground(hex2Rgb(c.get(x%length + 1)));
 			colors[x%length] = Rgb2hex(hex2Rgb(c.get(x%length + 1)).getRed(), hex2Rgb(c.get(x%length + 1)).getGreen(), hex2Rgb(c.get(x%length + 1)).getBlue());
-			*/
 		}
 	}
 	
