@@ -62,7 +62,7 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	public ColorPicker(){
 		setLayout(null);
-		setResizable(false);
+		setResizable(true);
 		setBackground(new Color(0,255,187));
 		setTitle("Paint By Numbers");
 		
@@ -173,6 +173,7 @@ public class ColorPicker extends Frame implements ActionListener{
 	
 	static String[] get(){
 		String[] colorArray = null;
+		/*
 		try{
 		URL url = new URL("http://pbn.minsky.co/api/colors");
 		HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -194,6 +195,11 @@ public class ColorPicker extends Frame implements ActionListener{
 		}catch(Exception e1){
 			System.out.println(e1);
 		}
+		*/
+		colorArray = new String[400];
+		for (int x = 0; x < 400; x++){
+	   		colorArray[x] = "FFFFFF";
+	   	}
 	   	return colorArray;
 	}
 	
